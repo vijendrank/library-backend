@@ -1,0 +1,45 @@
+package com.vk.library.service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.vk.library.model.Book;
+import com.vk.library.repository.BookRepository;
+
+@Service
+@Transactional
+public class IssueService {
+
+	@Autowired
+	public IssueRepository issueRepository;
+	
+	public IssueService addIssue(IssueService issue) {
+		return issueRepository.save(issue);
+	}
+	
+	public IssueService updateIssue(IssueService issueToUpdate) {
+		return issueRepository.save(issueToUpdate);
+	}
+	
+	public void deleteIssue(IssueService issue) {
+		issueRepository.delete(issue);
+	}
+	
+	public void deleteIssueByAcct_no(Long id) {
+		issueRepository.deleteById(id);
+	}
+	
+	public List<IssueService> getAllIssue() {
+		List<IssueService> all = new ArrayList<IssueService>();
+		for (IssueService issue : issueRepository.findAll()) {
+			all.add(issue);
+		}
+		return all;
+		
+	}	
+}
+

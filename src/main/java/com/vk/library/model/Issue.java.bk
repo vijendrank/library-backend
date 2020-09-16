@@ -1,0 +1,67 @@
+package com.vk.library.model;
+
+import java.sql.Date;
+import java.sql.Time;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
+public class Issue {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	Long ACCT_NO;
+
+	@Column
+	String name;
+
+	@Column
+	Date DATE_ISSUE;
+
+	
+	@Column
+	Time TIME_ISSUE;
+	
+	@Column
+	Date DATE_RETURN;
+	
+	@Column
+	Time TIME_RETURN;
+
+	public Long getId() {
+		return ACCT_NO;
+	}
+
+	public void setAcct_no(Long acct_no) {
+		this.acct_no = acct_no;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
+	public String getIsbn() {
+		return isbn;
+	}
+
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
+	}
+
+}

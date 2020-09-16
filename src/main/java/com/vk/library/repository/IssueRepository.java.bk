@@ -1,0 +1,10 @@
+package com.vk.library.repository;
+
+import org.springframework.data.repository.CrudRepository;
+
+import com.vk.library.model.User;
+
+public interface IssueRepository extends CrudRepository<Issue, Long> {
+
+	
+}
