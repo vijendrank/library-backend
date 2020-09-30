@@ -7,6 +7,8 @@ INSERT INTO BOOK (ID, NAME, AUTHOR, ISBN) VALUES (1, 'Harry Porter 1', 'JK Rowli
 INSERT INTO BOOK (ID, NAME, AUTHOR, ISBN) VALUES (2, 'Harry Porter 2', 'JK Rowling', '672345');
 INSERT INTO BOOK (ID, NAME, AUTHOR, ISBN) VALUES (3, 'Lord of the Rings', 'JR TOKIEN', '712312');
 
+
+
 --Samuel reserve Harry Porter 1
 --INSERT INTO RESERVATION (BOOK_ID, USER_ID) VALUES (1, 1);
 --Samuel reserve Harry Porter 2

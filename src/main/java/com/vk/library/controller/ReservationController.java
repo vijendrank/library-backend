@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.vk.library.model.Book;
 import com.vk.library.model.Reservation;
 import com.vk.library.model.ReservationRequest;
+import com.vk.library.model.ReturnHistory;
 import com.vk.library.model.User;
 import com.vk.library.service.BookService;
 import com.vk.library.service.ReservationService;
+import com.vk.library.service.ReturnHistoryService;
 import com.vk.library.service.UserService;
 
 @RestController
@@ -37,6 +39,9 @@ public class ReservationController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private ReturnHistoryService returnHistoryService;
 
 	@RequestMapping(value = "/reservation/create", method = RequestMethod.POST)
 	public ResponseEntity<?> createReservation(@RequestBody ReservationRequest reservationRequest) {
@@ -98,13 +103,26 @@ public class ReservationController {
 		}
 	}
 
+	//Return book by deleting the record and saving the history in the RETURN_HISTORY table
 	@RequestMapping(value = "/reservation/delete/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<?> deleteReservation(@PathVariable Long id) {
 
 		try {
 			LOGGER.info("Deleting reservation by id...");
-
+			
+			//1. get the reservation by using the id
+			Reservation reservation = reservationService.findReservationById(id);
+			
+			//2. save the details in the RETURN_HISTORY table
+			ReturnHistory returnHistory = new ReturnHistory();
+			returnHistory.setBook(reservation.getBook());
+			returnHistory.setUser(reservation.getUser());
+			returnHistory.setReturnDate(reservation.getReturnDate());
+			returnHistoryService.addReturnHistory(returnHistory);
+			
+			//3. delete the reservation record
 			reservationService.deleteReservationById(id);
+			
 			ResponseEntity<?> response = new ResponseEntity<>(HttpStatus.ACCEPTED);
 			return response;
 		} catch (Exception e) {
